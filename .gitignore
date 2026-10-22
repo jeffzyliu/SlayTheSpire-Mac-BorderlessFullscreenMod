@@ -1,0 +1,20 @@
+# Build output and user-supplied dependency jars
+lib/
+target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# JVM crash logs
+hs_err_pid*.log
+
+# OS
+.DS_Store
+
+# Claude Code local settings
+.claude/settings.local.json

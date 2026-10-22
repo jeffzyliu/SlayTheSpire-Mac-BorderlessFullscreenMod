@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>borderlessfs</groupId>
+    <artifactId>BorderlessFullscreen</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Slay the Spire ships a Java 8 JRE -->
+        <maven.compiler.release>8</maven.compiler.release>
+    </properties>
+
+    <dependencies>
+        <!-- JNA is shaded into the mod jar (unrelocated: its JNI natives are bound to com.sun.jna) -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.14.0</version>
+        </dependency>
+        <!-- Compile-only: BaseMod and the game (libgdx, LWJGL) are on the classpath at runtime. -->
+        <dependency>
+            <groupId>basemod</groupId>
+            <artifactId>basemod</artifactId>
+            <version>5.56.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/BaseMod.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.megacrit</groupId>
+            <artifactId>desktop</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/desktop-1.0.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>BorderlessFullscreen</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <compilerArgs><arg>-Xlint:-options</arg></compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <!-- Compile-only stub of ModTheSpire's annotation; the real one comes from ModTheSpire -->
+                    <excludes><exclude>com/evacipated/**</exclude></excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>shade</goal></goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <filters>
+                                <filter>
+                                    <artifact>net.java.dev.jna:jna</artifact>
+                                    <includes>
+                                        <include>com/sun/jna/*.class</include>
+                                        <include>com/sun/jna/internal/**</include>
+                                        <include>com/sun/jna/ptr/**</include>
+                                        <include>com/sun/jna/darwin-x86-64/**</include>
+                                        <include>com/sun/jna/darwin-aarch64/**</include>
+                                        <include>META-INF/LICENSE</include>
+                                        <include>META-INF/AL2.0</include>
+                                        <include>META-INF/LGPL2.1</include>
+                                    </includes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
