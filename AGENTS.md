@@ -3,7 +3,7 @@
 ## Build and install
 
 - Build dependencies are the jars in `lib/`: `BaseMod.jar` (Steam workshop item 1605833019) and `desktop-1.0.jar` (the game, from `SlayTheSpire.app/Contents/Resources`). The pom references them as system-scope dependencies and does not bundle them. `lib/` is gitignored: each developer supplies the jars themselves, and they must be present to build. Replace them when the game or BaseMod updates.
-- `mvn -q package` produces `target/BorderlessFullscreen.jar` (JNA shaded in, unrelocated).
+- `mvn -q package` produces `target/BorderlessFullscreen.jar` (JNA is not bundled; the mod uses the copy inside the game jar).
 - Install by copying the jar into `~/Library/Application Support/Steam/steamapps/common/SlayTheSpire/SlayTheSpire.app/Contents/Resources/mods/`, then restart the game. There are no tests or linters.
 - Source level is Java 8 (`maven.compiler.release` 8) because the game ships a Java 8 JRE. No lambdas needed, but keep to Java 8 APIs.
 - `src/main/java/com/evacipated/.../SpireInitializer.java` is a compile-only stub; the jar excludes it and ModTheSpire supplies the real one.

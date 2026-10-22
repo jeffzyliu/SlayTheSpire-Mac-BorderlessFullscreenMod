@@ -2,8 +2,8 @@
   "modid": "borderlessfullscreen",
   "name": "Borderless Fullscreen (macOS)",
   "author_list": ["jeffzyliu"],
-  "description": "On macOS, raises the game window above the menu bar and Dock on its own display only, while the game is focused. Use with Borderless (or Windowed) display mode.",
-  "version": "1.0.0",
+  "description": "On macOS, raises the game window above the menu bar and Dock on its own display only, while the game is focused. Use with Borderless Windowed display mode.",
+  "version": "1.0.1",
   "sts_version": "12-18-2022",
   "mts_version": "3.15.0",
   "dependencies": ["basemod"]
